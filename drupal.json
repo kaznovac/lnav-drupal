@@ -1,4 +1,5 @@
 {
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
   "drupal_request": {
     "title": "Drupal Request Format",
     "description": "A log record following Acquia's Drupal Request log file format.",
@@ -37,7 +38,7 @@
     "description": "Syslog format for Drupal Watchdog",
     "regex": {
         "std": {
-            "pattern": "^(?<timestamp>\\w{3}\\s+\\d{1,2} \\d{2}:\\d{2}:\\d{2}) (?<server>[0-9\\.a-z\\-]+) (?<hostname>[A-Za-z0-9_-]+): (?<base_url>[^\\|]+)\\|(?<req_timestamp>\\d+)\\|(?<type>[^\\|]+)\\|(?<ip>[0-9\\.]+)\\|(?<request_uri>\\S*)\\|(?<referer>\\S*)\\|(?<uid>\\d+)\\|(?<link>\\S*)\\|(?<body>.*)$"
+            "pattern": "^(?<timestamp>\\w{3}\\s+\\d{1,2} \\d{2}:\\d{2}:\\d{2}) (?<server>[0-9.a-z\\-]+) (?<hostname>[A-Za-z0-9_-]+)(?<pid>\\[\\d{1,5}])?: (?<base_url>[^|]+)\\|(?<req_timestamp>\\d+)\\|(?<type>[^|]+)\\|(?<ip>[0-9.a-f:]+)\\|(?<request_uri>\\S*)\\|(?<referer>\\S*)\\|(?<uid>\\d+)\\|(?<link>\\S*)\\|(?<body>.*)$"
         },
         "inside": {
           "module-format": true,
@@ -61,8 +62,10 @@
       "link": { "kind": "string" }
     },
     "sample": [
-      { "line": "Oct  9 06:27:30 test-server test.local: http://test.local|1475994450|page not found|2.2.2.2|http://test.local/www.googletagmanager.com/ns.html?id=GTM-WJW75D||0||www.googletagmanager.com/ns.html request_id=\"v-7461a700-8de9-11e6-aaae-12ab7d2b3029\"" },
-      { "line": "Oct  9 06:28:51 test-server test.local: https://test.local|1475994531|php|2.2.2.2|https://test.local/user/register|https://test.local/|0||Warning: Creating default object from empty value in test_preprocess_page() (line 241 of /mnt/www/html/test/docroot/sites/all/themes/test/template.php). request_id=\"77ad1e45-0f38-4fd8-816f-4c77d9f870ae\"" }
+      { "line": "Oct  9 06:27:30 test-server testlocal: http://test.local|1475994450|page not found|2.2.2.2|http://test.local/www.googletagmanager.com/ns.html?id=GTM-WJW75D||0||www.googletagmanager.com/ns.html request_id=\"v-7461a700-8de9-11e6-aaae-12ab7d2b3029\"" },
+      { "line": "Oct  9 06:28:51 test-server testlocal: https://test.local|1475994531|php|2.2.2.2|https://test.local/user/register|https://test.local/|0||Warning: Creating default object from empty value in test_preprocess_page() (line 241 of /mnt/www/html/test/docroot/sites/all/themes/test/template.php). request_id=\"77ad1e45-0f38-4fd8-816f-4c77d9f870ae\"" },
+      { "line": "Aug 18 21:22:01 10.0.0.1 alphabeta: https://www.example.com|1503091321|custom_module|151.0.0.1|https://example.com/documents||0||Warning: Invalid argument supplied for foreach() in views_join->build_join request_id=\"v-00000000-845b-0000-8178-22000ab832c9\"" },
+      { "line": "Mar  7 16:02:03 test-server testlocal[3408]: https://test.local|1678204923|php|2a03:2880:21ff:7::face:b00c|https://test.local/example?term=05&term2=05-23|https://test.local/test_path/05-2313b|0||Warning: Attempt to read property \"property\" on bool in function_test() (line 52 of /mnt/www/html/test/docroot/sites/all/modules/test_module/pages/test_file.inc). request_id=\"v-66aba05e-bd01-11ed-9846-db33f26fafb2\"" }
     ]
   }
 }
